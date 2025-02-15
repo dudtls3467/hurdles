@@ -1,0 +1,38 @@
+package kr.or.ddit.main.admin.service;
+
+import kr.or.ddit.main.admin.dao.AdminMainDao;
+
+public class AdminMainService {
+	private static AdminMainService instance;
+	
+	
+			
+	private AdminMainService() {
+
+	}
+
+	public static AdminMainService getInstance() {
+		if (instance == null) {
+			instance = new AdminMainService();
+		}
+		return instance;
+	}
+	
+	
+	public int payTotalPrice() {
+		return 1;
+	}
+	
+	public int reservationCnt() {
+		return 1;
+	}
+	
+	public int memberCnt() {
+		return 1;
+	}
+	
+	public int reviewCnt() {
+		return 1;
+	}
+	
+}

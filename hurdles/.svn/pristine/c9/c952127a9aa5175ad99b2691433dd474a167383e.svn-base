@@ -1,0 +1,16 @@
+package kr.or.ddit.site.coupon.dao;
+
+import java.util.List;
+
+import kr.or.ddit.vo.CouponVo;
+
+public interface ICouponDao {
+	// 쿠폰 목록 (식당별) 
+		public List<CouponVo> list(CouponVo param);
+		
+		// 쿠폰 발급
+		public int insert(CouponVo param);
+		
+		// 쿠폰 사용
+		public int use(CouponVo param);
+}

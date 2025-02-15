@@ -1,0 +1,9 @@
+package kr.or.ddit.site.member.dao;
+
+import kr.or.ddit.vo.MemberVo;
+
+public interface IMemberDao {
+	//유저 상세보기 - 오정균 작업준비끝!
+	
+	public MemberVo memberDetail(MemberVo memberVo);
+}

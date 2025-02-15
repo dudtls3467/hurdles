@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menu">
+
+  <select id="getMenuNo"  resultType="int">
+    SELECT MENU_SEQ.NEXTVAL FROM DUAL
+  </select>
+
+  <select id="list" parameterType="int" resultType="menuVo">
+    SELECT M.*, F.*
+    FROM MENU M
+    LEFT JOIN FILES F ON(M.FILE_NO = F.FILE_NO)
+    WHERE RESTAURANT_NO = #{restaurantNo}
+  </select>
+
+  <insert id="insert" parameterType="menuVo">
+    INSERT INTO MENU(
+      MENU_NO, MENU_NAME, MENU_PRICE,
+      RESTAURANT_NO
+      <if test="menuDes != null and menuDes != ''">
+				, MENU_DES
+			</if>
+      <if test="fileNo != null and fileNo != ''">
+				, FILE_NO
+			</if>
+    ) VALUES(
+      #{menuNo}, #{menuName},  #{menuPrice},
+      #{restaurantNo}
+      <if test="menuDes != null and menuDes != ''">
+				, #{menuDes}
+			</if>
+      <if test="fileNo != null and fileNo != ''">
+				, #{fileNo}
+			</if>
+    )
+  </insert>
+
+  <update id="update" parameterType="menuVo">
+      UPDATE MENU SET
+      MENU_NAME = #{menuName},
+      MENU_DES = #{menuDes},
+      MENU_PRICE = #{menuPrice}
+      <if test="fileNo != null and fileNo != ''">
+				, FILE_NO = #{fileNo}
+			</if>
+      WHERE MENU_NO = #{menuNo}
+  </update>
+
+  <delete id="delete" parameterType="menuVo">
+    DELETE FROM MENU
+    WHERE MENU_NO = #{menuNo}
+  </delete>
+</mapper>

@@ -1,0 +1,19 @@
+package kr.or.ddit.owner.reservation.service;
+
+import kr.or.ddit.admin.reservation.service.IReservationService;
+
+public class ReservationService implements IReservationService {
+	private static ReservationService instance;
+
+	private ReservationService() {
+
+	}
+
+	public static ReservationService getInstance() {
+		if (instance == null) {
+			instance = new ReservationService();
+		}
+
+		return instance;
+	}
+}

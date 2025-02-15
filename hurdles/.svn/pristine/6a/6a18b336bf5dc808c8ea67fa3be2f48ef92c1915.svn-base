@@ -1,0 +1,57 @@
+package kr.or.ddit.admin.review.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.Pagenation;
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.ReviewVo;
+
+public class ReviewReportDao extends MybatisDao implements IReviewDao {
+	private static ReviewReportDao instance;
+
+	private ReviewReportDao() {
+
+	}
+
+	public static ReviewReportDao getInstance() {
+		if (instance == null) {
+			instance = new ReviewReportDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public int getAllCount(Pagenation<ReviewVo> param) {
+//		return selectOne("black");
+		return selectOne("review.getAllCount",param);
+	}
+
+	@Override
+	public List<ReviewVo> list(Pagenation<ReviewVo> pagenation) {
+		return selectList("review.ReviewReportList",pagenation);
+	}
+
+	@Override
+	public ReviewVo detail(int reviewNo) {
+		return selectOne("review.reviewReportDetail",reviewNo);
+	}
+
+	@Override
+	public int insert(ReviewVo review) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(ReviewVo review) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(ReviewVo reviewNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

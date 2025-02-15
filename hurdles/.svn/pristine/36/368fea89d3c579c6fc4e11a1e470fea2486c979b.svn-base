@@ -1,0 +1,62 @@
+package kr.or.ddit.site.member.controller;
+
+import java.io.IOException;
+
+import org.apache.catalina.util.StandardSessionIdGenerator;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.site.member.service.MemberService;
+import kr.or.ddit.util.ParamResult;
+import kr.or.ddit.util.Utils;
+import kr.or.ddit.vo.MemberVo;
+
+@WebServlet("/site/memberDetail.do")
+public class MemberDetailController extends HttpServlet{
+	
+	MemberService memberService = MemberService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		
+		MemberVo memberVo = new MemberVo();
+		
+		String memberNoStr= req.getParameter("memberNo");
+		int memberNo = Utils.parseInt(memberNoStr,0);
+		memberVo.setMemberNo(memberNo);
+		
+		MemberVo memberDetail = memberService.memberDetail(memberVo);
+		
+		int fileNo = memberDetail.getFileNo();
+
+		
+		String filePath = memberService.getFilePath(fileNo);
+		
+		int getFollowCount=memberService.getFollowCount(memberNo);
+		
+		int getFollowingCount=memberService.getFollowingCount(memberNo);
+		
+		int gradeNo = memberDetail.getGradeNo();
+		
+		String gradeName = memberService.getGradeName(gradeNo);
+		
+		req.setAttribute("gradeName", gradeName);
+		
+		req.setAttribute("getFollowCount", getFollowCount);
+		
+		req.setAttribute("getFollowingCount", getFollowingCount);
+		
+		req.setAttribute("filePath", filePath);
+		
+		req.setAttribute("memberDetail", memberDetail);
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/site/member/memberDetail.jsp").forward(req, resp);
+	}
+}

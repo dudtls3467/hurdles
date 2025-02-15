@@ -1,0 +1,50 @@
+package kr.or.ddit.owner.reservation.service;
+
+import java.util.List;
+
+import kr.or.ddit.owner.reservation.dao.IReservationDao;
+import kr.or.ddit.util.Pagenation;
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.ReservationVo;
+
+public class OwnReservationService extends MybatisDao implements IReservationDao {
+	private static OwnReservationService instance;
+
+	private OwnReservationService() {
+
+	}
+
+	public static OwnReservationService getInstance() {
+		if (instance == null) {
+			instance = new OwnReservationService();
+		}
+
+		return instance;
+	}
+
+
+
+	@Override
+	public ReservationVo detail(ReservationVo resNo) {
+		// TODO Auto-generated method stub
+		return selectOne("reservation.reservationDetail", resNo);
+	}
+
+	@Override
+	public int update(ReservationVo resNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<ReservationVo> list(Pagenation<ReservationVo> pagenation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ReservationVo> list(ReservationVo reservationVo) {
+		// TODO Auto-generated method stub
+		return selectList("reservation.ownList", reservationVo);
+	}
+}

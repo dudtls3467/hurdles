@@ -1,0 +1,78 @@
+package kr.or.ddit.site.pay.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.site.cart.service.CartService;
+import kr.or.ddit.site.cart.service.ICartService;
+import kr.or.ddit.site.pay.service.IPayService;
+import kr.or.ddit.site.pay.service.PayService;
+import kr.or.ddit.vo.CartVo;
+
+@WebServlet("/site/pay.do")
+public class PayController extends HttpServlet {
+	
+	IPayService payService = PayService.getInstance();
+	ICartService cartService = CartService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		//List<CartVo> cartItems = 
+		
+		// 장바구니 수량 업데이트
+		//int updateCount = cartService.cartQtyUpdate(cartItems);
+		//System.out.println("업데이트된 상품 수 : " + updateCount);
+		
+		//String[] cartNo = req.getParameterValues("cartNo");
+		
+		//System.out.println(Arrays.toString(cartNo));
+		
+		//int[] remiveId = {1, 2, 3};
+		
+		//ServletContext ctx = req.getServletContext();
+		//ctx.getRequestDispatcher("/pay/kakaoPay.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		 // POST 방식으로 cartNo와 productQty 처리
+        String[] cartNoArray = req.getParameterValues("cartNo");
+        String[] productQtyArray = req.getParameterValues("productQty");
+
+        System.out.println(Arrays.toString(cartNoArray));
+        System.out.println(Arrays.toString(productQtyArray));
+        
+        List<CartVo> cartItems = new ArrayList<>();
+
+        // cartNo와 productQty를 매칭하여 CartVo 리스트 생성
+        if (cartNoArray != null && productQtyArray != null && cartNoArray.length == productQtyArray.length) {
+            for (int i = 0; i < cartNoArray.length; i++) {
+                CartVo cartVo = new CartVo();
+                cartVo.setCartNo(Integer.parseInt(cartNoArray[i]));
+                cartVo.setProductQty(Integer.parseInt(productQtyArray[i]));
+                cartItems.add(cartVo);
+            }
+        }
+
+        // 장바구니 수량 업데이트 서비스 호출
+        int updateCount = cartService.cartQtyUpdate(cartItems);
+        System.out.println("업데이트된 상품 수 : " + updateCount);
+
+        // 업데이트 후 KakaoPay 페이지로 리다이렉트
+        resp.sendRedirect(req.getContextPath() + "/pay/kakaoPay.jsp");
+    }
+		
+		
+}

@@ -1,0 +1,92 @@
+package kr.or.ddit.site.review.controller;
+
+import java.io.IOException;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import kr.or.ddit.site.review.service.ReviewService;
+import kr.or.ddit.vo.MemberVo;
+import kr.or.ddit.vo.ReviewVo;
+@WebServlet("/site/reviewInsert.do")
+@MultipartConfig
+public class ReviewInsertController extends HttpServlet{
+	
+	ReviewService reviewService = ReviewService.getInstance();	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//로그인 정보
+		HttpSession session = req.getSession();
+		MemberVo member = (MemberVo) session.getAttribute("member");
+		int memNo = member.getMemberNo();
+		
+		//리뷰를 쓸 식당정보 
+		String restNo = req.getParameter("restaurantNo");
+		int resNo = Integer.parseInt(restNo);
+		
+		//주문번호 - 페이지 생성시 활성화
+//		String ordNoStr = req.getParameter("restaurantNo");
+//		int ordNo = Integer.parseInt(ordNoStr);
+		int ordNo =7;
+		
+		ReviewVo vo = new ReviewVo();
+		vo.setMemberNo(memNo);
+		vo.setRestaurantNo(resNo);
+	    vo.setOrdersNo(ordNo);
+		
+		req.setAttribute("ReviewVo", vo);
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/site/review/reviewInsert.jsp").forward(req, resp);
+		
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//로그인 정보
+		HttpSession session = req.getSession();
+		MemberVo member = (MemberVo) session.getAttribute("member");
+		int memNo = member.getMemberNo();
+		
+		//리뷰를 쓸 식당정보 
+		String restNo = req.getParameter("restaurantNo");
+		int resNo = Integer.parseInt(restNo);
+		
+		//주문번호 - 페이지 생성시 활성화
+//		String ordNoStr = req.getParameter("restaurantNo");
+//		int ordNo = Integer.parseInt(ordNoStr);
+		int ordNo =7;
+		//내용
+		String content = req.getParameter("reviewContent");
+		//별점
+		String Score = req.getParameter("Score");
+		int reviewScore = Integer.parseInt(Score);
+		
+		
+		
+		ReviewVo vo = new ReviewVo();
+		vo.setMemberNo(memNo);
+		vo.setRestaurantNo(resNo);
+	    vo.setOrdersNo(ordNo);
+	    vo.setReviewContent(content);
+	    vo.setReviewScore(reviewScore);
+	  
+	    reviewService.reviewInsert(vo);
+	    
+	    int reviewNo = reviewService.getReviewNo();
+	    vo.setReviewNo(reviewNo);
+	    
+	    
+	    
+	    resp.sendRedirect(req.getContextPath() +"/site/reviewDetail.do?reviewNo=" + reviewNo);
+		
+		
+		
+		
+	}
+
+}

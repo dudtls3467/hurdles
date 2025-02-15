@@ -1,0 +1,19 @@
+package kr.or.ddit.main.admin.dao;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+
+public class AdminMainDao extends MybatisDao {
+	private static AdminMainDao instance;
+
+	private AdminMainDao() {
+
+	}
+
+	public static AdminMainDao getInstance() {
+		if (instance == null) {
+			instance = new AdminMainDao();
+		}
+		return instance;
+	}
+	
+}

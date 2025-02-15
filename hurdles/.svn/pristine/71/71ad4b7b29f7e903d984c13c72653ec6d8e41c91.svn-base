@@ -1,0 +1,5 @@
+package kr.or.ddit.site.review.service;
+
+public interface IReviewService {
+
+}

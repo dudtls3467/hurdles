@@ -1,0 +1,70 @@
+package kr.or.ddit.site.board.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.Pagenation;
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.BoardVo;
+
+public class notificationDao extends MybatisDao implements IBoardDao {
+	private static notificationDao instance;
+
+	private notificationDao() {
+
+	}
+
+	public static notificationDao getInstance() {
+		if (instance == null) {
+			instance = new notificationDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public List<BoardVo> notificationList(BoardVo boardNo) {
+		
+		return selectList("notification.notificationList",boardNo);
+	}
+	
+	@Override
+	public BoardVo notificationDetail (BoardVo boardNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
+	@Override
+	public List<BoardVo> list(Pagenation<BoardVo> pagenation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BoardVo detail(int boardNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insert(BoardVo board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(BoardVo board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(int boardNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+}

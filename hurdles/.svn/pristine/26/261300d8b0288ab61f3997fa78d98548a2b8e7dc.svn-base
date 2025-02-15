@@ -1,0 +1,10 @@
+package kr.or.ddit.vo;
+
+public class GradeVo {
+	private int gradeNo;
+	private String gradeName;
+	private int gradeLevel;
+	private int gradePayback;
+	
+
+}

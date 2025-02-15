@@ -1,0 +1,5 @@
+package kr.or.ddit.site.mileage.dao;
+
+public interface IMileageDao {
+
+}

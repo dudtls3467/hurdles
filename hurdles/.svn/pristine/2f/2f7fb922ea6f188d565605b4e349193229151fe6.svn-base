@@ -1,0 +1,19 @@
+package kr.or.ddit.auth.service;
+
+import kr.or.ddit.vo.MemberVo;
+
+public interface IAuthService {
+	public MemberVo login(MemberVo member);
+	
+	public int logOut(MemberVo member);
+	
+	public int join(MemberVo member);
+	
+	public int idFind(MemberVo member);
+	
+	public int pwFind(MemberVo member);
+	
+	public int delete(MemberVo member);
+	
+	public MemberVo detail(MemberVo member);
+}

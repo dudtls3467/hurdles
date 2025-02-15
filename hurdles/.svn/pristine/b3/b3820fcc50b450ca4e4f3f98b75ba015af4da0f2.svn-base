@@ -1,0 +1,19 @@
+package kr.or.ddit.site.ordersProduct.dao;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+
+public class OrdersProductDao extends MybatisDao implements IOrdersProductDao {
+
+	private static OrdersProductDao instance;
+
+	private OrdersProductDao() {
+
+	}
+
+	public OrdersProductDao getInstance() {
+		if (instance == null) {
+			instance = new OrdersProductDao();
+		}
+		return instance;
+	}
+}

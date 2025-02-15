@@ -1,0 +1,47 @@
+package kr.or.ddit.site.cart.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.CartVo;
+import kr.or.ddit.vo.MemberVo;
+
+public class CartDao extends MybatisDao implements ICartDao {
+	private static CartDao instance;
+
+	private CartDao() {
+
+	}
+
+	public static CartDao getInstance() {
+		if (instance == null) {
+			instance = new CartDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public List<CartVo> list(CartVo cart) {
+		
+		return selectList("cart.list",cart);
+	}
+
+	@Override
+	public int insert(CartVo cart) {
+		
+		return insert(cart);
+	}
+
+	@Override
+	public int update(CartVo cart) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(CartVo cart) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

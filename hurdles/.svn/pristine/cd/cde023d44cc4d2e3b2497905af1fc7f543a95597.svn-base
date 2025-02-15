@@ -1,0 +1,25 @@
+package kr.or.ddit.admin.board.controller;
+
+import java.io.IOException;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.admin.board.service.BoardService;
+import kr.or.ddit.util.RequestToVoMapper;
+import kr.or.ddit.vo.BoardVo;
+
+@WebServlet("/admin/boardDelete.do")
+public class BoardDeleteController extends HttpServlet {
+	BoardService boardService = BoardService.getInstance();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		BoardVo searchBoard = RequestToVoMapper.mapRequestToVo(req, BoardVo.class);
+		boardService.delete(searchBoard.getBoardNo());
+
+		resp.sendRedirect(req.getContextPath() + "/admin/boardList.do");
+	}
+}

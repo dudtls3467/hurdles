@@ -1,0 +1,8 @@
+package kr.or.ddit.site.review.dao;
+
+import kr.or.ddit.vo.ReviewVo;
+
+public interface IReviewDao {
+
+	public ReviewVo reviewDetail(ReviewVo reviewVo);
+}

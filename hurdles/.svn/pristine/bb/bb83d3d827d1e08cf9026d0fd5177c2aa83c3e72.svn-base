@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="question">
+	<!-- 문의글 등록 -->
+	<insert id="insert">
+		INSERT INTO QUESTION(QUESTION_NO,QUESTION_TITLE,QUESTION_CONTENT,CREATE_DATE,
+		                     MEMBER_NO,RESTAURANT_NO,FILE_NO)
+		VALUES(QUESTION_SEQ.NEXTVAL,#{questionTitle},#{questionContent},SYSDATE,
+		       #{memberNo},#{restaurantNo},#{fileNo})
+	</insert>
+</mapper>

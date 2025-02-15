@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coupon">
+	<select id="list" resultType="couponVo" parameterType="couponVo">
+		SELECT C.*,
+    (SELECT 'Y' FROM MEMBER_COUPON WHERE MEMBER_NO = #{memberNo} AND COUPON_NO = C.COUPON_NO) AS ISSUED
+		FROM COUPON C
+		JOIN RESTAURANT R ON (C.RESTAURANT_NO = R.RESTAURANT_NO)
+		WHERE R.RESTAURANT_NO = #{restaurantNo}
+		<![CDATA[AND C.END_DATE > SYSDATE]]>
+		ORDER BY C.CREATE_DATE
+	</select>
+
+	<insert id="issued" parameterType="couponVo">
+		INSERT INTO MEMBER_COUPON(MEMBER_NO, COUPON_NO)
+		VALUES(#{memberNo},  #{couponNo})
+	</insert>
+</mapper>

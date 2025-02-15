@@ -1,0 +1,5 @@
+package kr.or.ddit.site.restaurant.service;
+
+public interface IRestaurantService {
+
+}

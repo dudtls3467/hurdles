@@ -1,0 +1,17 @@
+package kr.or.ddit.site.mileage.dao;
+
+public class MileageDAo implements IMileageDao {
+	private static MileageDAo instance;
+
+	private MileageDAo() {
+
+	}
+
+	public static MileageDAo getInstance() {
+		if (instance == null) {
+			instance = new MileageDAo();
+		}
+
+		return instance;
+	}
+}

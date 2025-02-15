@@ -1,0 +1,17 @@
+package kr.or.ddit.admin.review.service;
+
+public class ReviewService implements IReviewService {
+	private static ReviewService instance;
+
+	private ReviewService() {
+
+	}
+
+	public static ReviewService getInstance() {
+		if (instance == null) {
+			instance = new ReviewService();
+		}
+
+		return instance;
+	}
+}

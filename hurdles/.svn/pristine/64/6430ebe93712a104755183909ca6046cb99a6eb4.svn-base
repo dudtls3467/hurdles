@@ -1,0 +1,40 @@
+package kr.or.ddit.owner.reservation.service;
+
+import java.util.List;
+
+import kr.or.ddit.admin.reservation.service.IReservationService;
+import kr.or.ddit.vo.ReservationVo;
+
+public class ReservationService implements IReservationService {
+	private static ReservationService instance;
+
+	private ReservationService() {
+
+	}
+
+	public static ReservationService getInstance() {
+		if (instance == null) {
+			instance = new ReservationService();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public List<ReservationVo> list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReservationVo detail(ReservationVo resNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int update(ReservationVo resNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

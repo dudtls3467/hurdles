@@ -1,0 +1,5 @@
+package kr.or.ddit.site.pick.dao;
+
+public interface IPickDao {
+
+}

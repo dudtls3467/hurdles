@@ -1,0 +1,27 @@
+package kr.or.ddit.site.member.service;
+
+
+import kr.or.ddit.site.member.dao.MemberDao;
+import kr.or.ddit.vo.MemberVo;
+
+public class MemberService implements IMemberService {
+	private static MemberService instance;
+
+	private MemberService() {
+
+	}
+
+	public static MemberService getInstance() {
+		if (instance == null) {
+			instance = new MemberService();
+		}
+
+		return instance;
+	}
+	MemberDao memberDao = MemberDao.getInstance();
+
+	public MemberVo memberDetail(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return memberDao.memberDetail(memberVo);
+	}
+}

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">	
+	<select id="detail" parameterType="memberVo" resultType="memberVo">
+		SELECT M.MEMBER_NO, MP.MEMBER_NAME, MP.MEMBER_BIR, MP.MEMBER_GENDER, MP.MEMBER_ADD1, MP.MEMBER_ADD2,
+        	   MP.MEMBER_TEL, MP.MEMBER_EMAIL, MP.MEMBER_MILEAGE, MP.FILE_NO, MP.GRADE_NO,
+        	   M.MEMBER_ROLE
+    	FROM MEMBER M
+    	JOIN MEMBER_PROFILE MP ON(M.MEMBER_NO = MP.MEMBER_NO)
+    	WHERE M.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="getFilePath" parameterType="int" resultType="string">
+		SELECT NVL(FILE_PATH,'0')
+    		FROM FILES
+    		WHERE FILE_NO = #{fileNo}
+	
+	</select>
+	
+	<!-- 내가 팔로우 하는 사람 -->
+	<select id="getFollowCount" parameterType="int" resultType="int">
+		SELECT COUNT(F.MEMBER_FOLLOW_NO) AS FOLLOW_COUNT
+       			
+			FROM MEMBER M
+		LEFT JOIN FOLLOW F ON F.MEMBER_NO = M.MEMBER_NO
+		WHERE M.MEMBER_NO = #{memberNo}
+		
+	</select>
+	<!-- 나를 팔로우 하는 사람  -->
+	<select id="getFollowingCount" parameterType="int" resultType="int">
+		
+		SELECT COUNT(F.MEMBER_FOLLOW_NO) AS FOLLOWER_COUNT
+       			
+			FROM MEMBER M
+		LEFT JOIN FOLLOW F ON F.MEMBER_FOLLOW_NO = M.MEMBER_NO
+		WHERE M.MEMBER_NO = #{memberNo}
+		
+	
+	</select>
+	
+	<select id="getGradeName" parameterType="int" resultType="String">
+	    SELECT GRADE_NAME
+        	FROM GRADE
+       	 WHERE GRADE_NO = #{gradeNo}
+	</select>
+	
+<!-- 	<select id="followDetail" parameterType="int" resultType="memberVo">
+	
+		SELECT 
+    		M.MEMBER_NAME,
+   		 	FS.FILE_PATH,
+    		M.MEMBER_NO
+		FROM 
+    		MEMBER_PROFILE M
+		LEFT JOIN 
+    		FOLLOW F ON M.MEMBER_NO = F.MEMBER_NO
+		LEFT JOIN 
+		    FILES FS ON M.FILE_NO = FS.FILE_NO
+		WHERE 
+		    F.MEMBER_FOLLOW_NO = ${memberNo}
+	
+	</select> -->
+	
+	<select id="getMemberName" parameterType="int" resultType="String">
+		SELECT MEMBER_NAME
+			FROM MEMBER_PROFILE
+			WHERE MEMBER_NO=#{memberNo}
+	</select>
+	
+<!-- 	<select id="followerDetail" parameterType="int" resultType="memberVo">
+		SELECT 
+   		 	M.MEMBER_NAME,
+    		FS.FILE_PATH,
+    		M.MEMBER_NO
+		FROM 
+    		MEMBER_PROFILE M
+		LEFT JOIN 
+    		FOLLOW F ON M.MEMBER_NO = F.MEMBER_FOLLOW_NO
+		LEFT JOIN 
+    		FILES FS ON M.FILE_NO = FS.FILE_NO
+		WHERE 
+    		F.MEMBER_NO = ${memberNo}
+			
+	</select> -->
+		<select id="selectListTotalCount" resultType="int" parameterType="pagenation">
+		SELECT COUNT(*)
+		FROM MEMBER_PROFILE M
+		LEFT JOIN 
+    		FOLLOW F ON M.MEMBER_NO = F.MEMBER_FOLLOW_NO
+		LEFT JOIN 
+    		FILES FS ON M.FILE_NO = FS.FILE_NO
+		WHERE 
+    		F.MEMBER_NO = ${searchVo.memberNo} 
+	</select>
+	
+		<select id="followDetail" resultType="memberVo" parameterType="pagenation">
+		SELECT 
+    		M.MEMBER_NAME,
+   		 	FS.FILE_PATH,
+    		M.MEMBER_NO
+		FROM 
+    		MEMBER_PROFILE M
+		LEFT JOIN 
+    		FOLLOW F ON M.MEMBER_NO = F.MEMBER_NO
+		LEFT JOIN 
+		    FILES FS ON M.FILE_NO = FS.FILE_NO
+		WHERE 
+		    F.MEMBER_FOLLOW_NO = ${searchVo.memberNo}
+		ORDER BY M.MEMBER_NO DESC
+	    OFFSET (#{pageNo} - 1) * #{recordCountPerPage} ROWS FETCH FIRST #{recordCountPerPage} ROWS ONLY
+	</select>
+	
+			<select id="followerDetail" resultType="memberVo" parameterType="pagenation">
+		SELECT 
+    		M.MEMBER_NAME,
+   		 	FS.FILE_PATH,
+    		M.MEMBER_NO
+		FROM 
+    		MEMBER_PROFILE M
+		LEFT JOIN 
+    		FOLLOW F ON M.MEMBER_NO = F.MEMBER_FOLLOW_NO
+		LEFT JOIN 
+		    FILES FS ON M.FILE_NO = FS.FILE_NO
+		WHERE 
+		    F.MEMBER_NO = ${searchVo.memberNo}
+		ORDER BY M.MEMBER_NO DESC
+	    OFFSET (#{pageNo} - 1) * #{recordCountPerPage} ROWS FETCH FIRST #{recordCountPerPage} ROWS ONLY
+	</select>
+</mapper>

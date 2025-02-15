@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<select id="login" parameterType="memberVo" resultType="memberVo">
+		SELECT MEMBER_NO
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_PW = #{memberPw}
+		AND DELYN = 'N'
+	</select>
+	
+	<select id="detail" parameterType="memberVo" resultType="memberVo">
+		SELECT M.MEMBER_NO, MP.MEMBER_NAME, MP.MEMBER_BIR, MP.MEMBER_GENDER, MP.MEMBER_ADD1, MP.MEMBER_ADD2,
+        	   MP.MEMBER_TEL, MP.MEMBER_EMAIL, MP.MEMBER_MILEAGE, MP.FILE_NO, MP.GRADE_NO,
+        	   M.MEMBER_ROLE
+    	FROM MEMBER M
+    	JOIN MEMBER_PROFILE MP ON(M.MEMBER_NO = MP.MEMBER_NO)
+    	WHERE M.MEMBER_NO = #{memberNo}
+	</select>
+</mapper>

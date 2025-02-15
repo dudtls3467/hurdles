@@ -1,0 +1,17 @@
+package kr.or.ddit.site.ordersProduct.service;
+
+public class OrdersProductService implements IOrdersProductService {
+
+	private static OrdersProductService instance;
+
+	private OrdersProductService() {
+
+	}
+
+	public OrdersProductService getInstance() {
+		if (instance == null) {
+			instance = new OrdersProductService();
+		}
+		return instance;
+	}
+}

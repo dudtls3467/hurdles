@@ -1,0 +1,81 @@
+package kr.or.ddit.site.reservation.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import kr.or.ddit.site.reservation.service.IReservationService;
+import kr.or.ddit.site.reservation.service.ReservationService;
+import kr.or.ddit.vo.MemberVo;
+import kr.or.ddit.vo.ReservationVo;
+
+@WebServlet("/site/reservationInsert.do")
+public class ReservationInsertController extends HttpServlet {
+	
+	IReservationService reserveService = ReservationService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		MemberVo mem = new MemberVo();
+		mem.setMemberNo(12);
+		mem.setMemberName("김영신3");
+		mem.setMemberTel("010-0000-0000");
+		HttpSession session = req.getSession();
+		session.setAttribute("member", mem);
+		
+		session = req.getSession();
+		MemberVo member = (MemberVo) session.getAttribute("member");
+		int memberNo = member.getMemberNo();
+		
+		// 식당상세보기에서 넘어오는 예약상품번호 넣어주기
+		//req.setAttribute("reservation", reservation);
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/site/reservation/reservationInsert.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String memberNoStr = req.getParameter("memberNo");
+		int memberNo = Integer.parseInt(memberNoStr);
+		
+//		String reserveProductNoStr = req.getParameter("reserveProductNo");
+//		int reserveProductNo = Integer.parseInt(reserveProductNoStr);
+		
+		String memberName = req.getParameter("name");
+		String memberTel = req.getParameter("phone");
+		String reserveDate = req.getParameter("date");
+		String reserveTime = req.getParameter("time");
+		
+		String guestsStr = req.getParameter("guests");
+		int guests = Integer.parseInt(guestsStr);
+		
+		ReservationVo reservation = new ReservationVo();
+		reservation.setMemberNo(memberNo);
+		//reservation.setReserveProductNo(reserveProductNo);
+		reservation.setMemberName(memberName);
+		reservation.setMemberTel(memberTel);
+		reservation.setReserveDate(reserveDate);
+		reservation.setReserveTime(reserveTime);
+		reservation.setGuests(guests);
+		
+		req.setAttribute("reservation", reservation);
+		
+		int reservationInsert = reserveService.reservationInsert(reservation);
+		
+		System.out.println(reservationInsert+ "개 등록되었습니다");
+		
+		//resp.sendRedirect(req.getContextPath()+"/site/reservationSuccess.do");
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/site/reservation/reservationSuccess.jsp").forward(req, resp);
+		
+	}
+}

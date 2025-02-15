@@ -1,0 +1,34 @@
+package kr.or.ddit.admin.member.dao;
+
+import java.util.List;
+
+import kr.or.ddit.vo.MemberVo;
+
+public class MemberDao implements IMemberDao {
+	private static MemberDao instance;
+
+	private MemberDao() {
+
+	}
+
+	public static MemberDao getInstance() {
+		if (instance == null) {
+			instance = new MemberDao();
+		}
+
+		
+		return instance;
+	}
+
+	@Override
+	public List<MemberVo> list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVo detail(MemberVo memberNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

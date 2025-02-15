@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cart">
+
+<select id="list" resultType="cartVo" parameterType="cartVo">
+	SELECT C.CART_NO,C.PRODUCT_QTY,P.PRODUCT_NAME,P.PRODUCT_PRICE
+	FROM CART C ,PRODUCT P
+	WHERE C.PRODUCT_NO = P.PRODUCT_NO
+	AND MEMBER_NO = #{memberNo}	
+</select>
+<insert id="insert"  parameterType="cartVo">
+	INSERT INTO CART (CART_NO, MEMBER_NO, PRODUCT_NO, PRODUCT_QTY)
+	VALUES (CART_SEQ.NEXTVAL, #{memberNo}, #{productNo} , #{productQty});
+
+</insert>
+
+<delete id="delete" parameterType="int[]">
+	DELETE CART
+	WHERE CART_NO IN 
+	<foreach collection="array" item="id" open="(" separator="," close=")">
+		#{id}
+	</foreach>
+</delete>
+</mapper>

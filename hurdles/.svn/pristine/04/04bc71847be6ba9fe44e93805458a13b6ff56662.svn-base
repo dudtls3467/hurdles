@@ -1,0 +1,42 @@
+package kr.or.ddit.site.member.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.site.member.service.MemberService;
+import kr.or.ddit.util.Utils;
+import kr.or.ddit.vo.MemberVo;
+@WebServlet("/site/followDetail.do")
+public class FollowDetailController extends HttpServlet{
+	
+	MemberService memberService = MemberService.getInstance();
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		MemberVo memberVo=new MemberVo();
+		
+		String memberNoStr=req.getParameter("memberNo");
+		int memberNo =Integer.parseInt(memberNoStr);
+		
+		
+		memberVo.setMemberNo(memberNo);
+		
+		String getMemberName = memberService.getMemberName(memberNo);
+
+		List<MemberVo>followDetail= memberService.followDetail(memberNo);
+		
+		System.out.println(followDetail);
+		
+		req.setAttribute("getMemberName", getMemberName);
+		req.setAttribute("followDetail", followDetail);
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/site/follow/followDetail.jsp").forward(req, resp);
+	}
+}

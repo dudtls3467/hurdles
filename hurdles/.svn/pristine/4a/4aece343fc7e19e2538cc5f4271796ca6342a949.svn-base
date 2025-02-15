@@ -1,0 +1,25 @@
+package kr.or.ddit.admin.restaurant.service;
+
+import java.util.List;
+
+import kr.or.ddit.util.Pagenation;
+import kr.or.ddit.vo.RestaurantVo;
+
+public interface IRestaurantService {
+	// 식당 목록
+	public List<RestaurantVo> list(Pagenation<RestaurantVo> param);
+	
+	// 식당 상세보기
+	public RestaurantVo detail(RestaurantVo param);
+	
+	// 식당 추가
+	public int insert(RestaurantVo param);
+	
+	// 식당 수정
+	public int update(RestaurantVo param);
+	
+	// 식당 삭제
+	public int remove(RestaurantVo param);
+	
+	// 식당 이미지 가져오기
+}

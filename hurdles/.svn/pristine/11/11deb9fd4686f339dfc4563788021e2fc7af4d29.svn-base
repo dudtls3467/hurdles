@@ -1,0 +1,15 @@
+package kr.or.ddit.site.board.dao;
+
+import java.util.List;
+
+import kr.or.ddit.vo.BoardVo;
+
+public interface IBoardDao {
+	
+	//공지사항 리스트조회 -김은영 제작중
+	List<BoardVo> gongJiList ();
+	
+	//공지사항 상세보기 조회 - 김은영 제작중
+	BoardVo gongJiDetail(BoardVo boardNo);
+	
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<select id="getFileNo" resultType="int">
+		SELECT NVL(MAX(FILE_NO), 0) + 1
+		FROM ATTACH_FILE
+	</select>
+	
+	<insert id="addFile" parameterType="list">
+		INSERT INTO ATTACH_FILE
+		VALUES
+		<foreach collection="list" item="file" separator=",">
+			(
+			#{file.fileNo}, #{file.fileSn}, #{file.filePath},
+			#{file.fileOrgName}, #{file.fileSaveName},
+			#{file.fileExt},
+			#{file.fileSize}, SYSDATE, 'Y'
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insertBoardFile" parameterType="list">
+		INSERT INTO BOARD_FILE
+		VALUES
+		<foreach collection="list " item="item" separator=",">
+			(
+				#{item.board_no}, #{item.file_no}
+			)
+		</foreach>
+	</insert>
+	
+	<select id="boardFileList" resultType="fileVo" parameterType="int">
+		SELECT F.*
+		FROM ATTACH_FILE F
+		JOIN BOARD_FILE BF ON (BF.FILE_NO = F.FILE_NO)
+		WHERE BF.BOARD_NO = #{boardNo}
+		AND F.USE = 'Y'
+		ORDER BY F.FILE_SN
+	</select>
+	
+</mapper>

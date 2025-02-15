@@ -1,0 +1,17 @@
+package kr.or.ddit.site.restaurant.dao;
+
+public class RestaurantDao implements IRestaurantDao {
+	private static RestaurantDao instance;
+
+	private RestaurantDao() {
+
+	}
+
+	public static RestaurantDao getInstance() {
+		if (instance == null) {
+			instance = new RestaurantDao();
+		}
+
+		return instance;
+	}
+}

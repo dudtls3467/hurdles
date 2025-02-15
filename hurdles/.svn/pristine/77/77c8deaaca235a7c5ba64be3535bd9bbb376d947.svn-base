@@ -1,0 +1,45 @@
+package kr.or.ddit.site.cart.dao;
+
+import java.util.List;
+
+import kr.or.ddit.vo.CartVo;
+
+public class CartDao implements ICartDao {
+	private static CartDao instance;
+
+	private CartDao() {
+
+	}
+
+	public static CartDao getInstance() {
+		if (instance == null) {
+			instance = new CartDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public List<CartVo> list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insert(CartVo Cart) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(CartVo Cart) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(CartVo Cart) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

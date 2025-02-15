@@ -1,0 +1,57 @@
+package kr.or.ddit.filter;
+
+import java.io.IOException;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import kr.or.ddit.site.member.service.MemberService;
+import kr.or.ddit.vo.MemberVo;
+
+// @WebFilter(value = { "/site/myPage.do", "/site/asdasdasd.do" })
+@WebFilter(value = { "/site/*" })
+public class SiteAuthFilter implements Filter {
+	// 사용자 로그인이 필요한 url
+	@Override
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+			throws IOException, ServletException {
+		// 임시 삭제하기
+		MemberService memberService = MemberService.getInstance();
+
+		MemberVo member = new MemberVo();
+		member.setMemberNo(3);
+		member = memberService.memberDetail(member);
+		HttpServletRequest httpRequest = (HttpServletRequest) req;
+		HttpSession session = httpRequest.getSession();
+		session.setAttribute("member", member);
+		// 임시 삭제하기
+		
+		
+		chain.doFilter(req, resp);
+		
+//		임시 주석 
+//		// HttpServletRequest로 캐스팅
+//      HttpServletRequest httpRequest = (HttpServletRequest) req;
+//      HttpServletResponse httpresp = (HttpServletResponse) resp;
+//      
+//      // 세션 가져오기 (세션이 없으면 null 반환)
+//      HttpSession session = httpRequest.getSession(false);
+//      
+//      if (session != null) {
+//      	MemberVo member = (MemberVo) session.getAttribute("member");
+//      	
+//      	if (member != null) {
+//      		chain.doFilter(req, resp);
+//      		return;
+//      	} 
+//      }
+//      
+//      httpresp.sendRedirect(httpRequest.getContextPath() + "/auth/login.do");
+	}
+
+}

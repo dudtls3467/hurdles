@@ -1,0 +1,33 @@
+package kr.or.ddit.site.pay.dao;
+
+import java.util.List;
+
+import kr.or.ddit.vo.PayVo;
+
+public class PayDao implements IPayDao {
+	private static PayDao instance;
+
+	private PayDao() {
+
+	}
+
+	public static PayDao getInstance() {
+		if (instance == null) {
+			instance = new PayDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public List<PayVo> payList(PayVo pay) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PayVo payDetail(PayVo pay) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

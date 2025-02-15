@@ -1,0 +1,17 @@
+package kr.or.ddit.site.cart.dao;
+
+public class CartDao implements ICartDao {
+	private static CartDao instance;
+
+	private CartDao() {
+
+	}
+
+	public static CartDao getInstance() {
+		if (instance == null) {
+			instance = new CartDao();
+		}
+
+		return instance;
+	}
+}

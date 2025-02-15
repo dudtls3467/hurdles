@@ -1,0 +1,5 @@
+package kr.or.ddit.owner.coupon.service;
+
+public class CouponService implements ICouponService {
+
+}

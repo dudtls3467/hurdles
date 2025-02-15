@@ -1,0 +1,21 @@
+package kr.or.ddit.site.cart.service;
+
+import java.util.List;
+
+import kr.or.ddit.vo.CartVo;
+
+public interface ICartService {
+	
+	//장바구니 조회 
+	public List<CartVo> list ();
+	
+	//장바구니 생성
+	public int insert(CartVo Cart);
+	
+	//장바구니 수정
+	public int update(CartVo Cart);
+	
+	//장바구니 삭제
+	public int delete(CartVo Cart);
+
+}

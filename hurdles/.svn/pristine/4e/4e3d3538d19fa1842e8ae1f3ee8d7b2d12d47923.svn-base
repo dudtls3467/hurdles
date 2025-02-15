@@ -1,0 +1,56 @@
+package kr.or.ddit.auth.service;
+
+import kr.or.ddit.auth.dao.AuthDao;
+import kr.or.ddit.vo.MemberVo;
+
+public class AuthService implements IAuthService {
+	private static AuthService instance;
+	private AuthDao authDao = AuthDao.getInstance();
+
+	private AuthService() {
+
+	}
+
+	public static AuthService getInstance() {
+		if (instance == null) {
+			instance = new AuthService();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public MemberVo login(MemberVo member) {
+		return authDao.login(member);
+	}
+
+	@Override
+	public int logOut(MemberVo member) {
+		return 0;
+	}
+
+	@Override
+	public int join(MemberVo member) {
+		return 0;
+	}
+
+	@Override
+	public int idFind(MemberVo member) {
+		return 0;
+	}
+
+	@Override
+	public int pwFind(MemberVo member) {
+		return 0;
+	}
+
+	@Override
+	public int delete(MemberVo member) {
+		return 0;
+	}
+
+	@Override
+	public MemberVo detail(MemberVo member) {
+		return authDao.detail(member);
+	}
+}

@@ -1,0 +1,31 @@
+package kr.or.ddit.site.reservation.service;
+
+import java.util.List;
+
+import kr.or.ddit.site.reservation.dao.IReservationDao;
+import kr.or.ddit.site.reservation.dao.ReservationDao;
+import kr.or.ddit.vo.ReservationVo;
+
+public class ReservationService implements IReservationService {
+	private static ReservationService instance;
+
+	private ReservationService() {
+
+	}
+
+	public static ReservationService getInstance() {
+		if (instance == null) {
+			instance = new ReservationService();
+		}
+
+		return instance;
+	}
+	
+	IReservationDao reservedao = ReservationDao.getInstance();
+	
+	@Override
+	public List<ReservationVo> reservationList(ReservationVo reservation) {
+		// TODO Auto-generated method stub
+		return reservedao.reservationList(reservation);
+	}
+}

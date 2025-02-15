@@ -1,0 +1,69 @@
+//package kr.or.ddit.admin.member.service;
+//
+//import java.util.List;
+//
+//import kr.or.ddit.admin.board.dao.BlackDao;
+//import kr.or.ddit.admin.board.dao.NoticeDao;
+//import kr.or.ddit.util.Pagenation;
+//import kr.or.ddit.vo.BoardVo;
+//
+//public class BlackService implements IMemberService{
+//	
+//	private BlackDao blackDao = BlackDao.getInstance();
+//	
+//	private static BlackService instance;
+//
+//	private BlackService() {
+//
+//	}
+//
+//	public static BlackService getInstance() {
+//
+//		if (instance == null) {
+//
+//			instance = new BlackService();
+//
+//		}
+//
+//		return instance;
+//
+//	}
+//
+//	@Override
+//	public int getAllCount(Pagenation<BoardVo> param) {
+//		return blackDao.getAllCount(param);
+//	}
+//
+//	@Override
+//	public List<BoardVo> list(Pagenation<BoardVo> pagenation) {
+//		
+//		return blackDao.list(pagenation);
+//	}
+//
+//	@Override
+//	public BoardVo detail(int boardNo) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int insert(BoardVo board) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	@Override
+//	public int update(BoardVo board) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	@Override
+//	public int delete(BoardVo boardNo) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	
+//	
+//}

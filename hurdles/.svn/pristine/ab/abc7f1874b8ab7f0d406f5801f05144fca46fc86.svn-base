@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservation">
+	<select id="reservationList" parameterType="reservationVo" resultType="reservationVo">
+		SELECT RV.RESERVATION_NO, RT.RESTAURANT_NO, RP.RESERVE_PRODUCT_NO, 
+		       RT.RESTAURANT_NAME, RT.RESTAURANT_TEL, RV.RESERVE_DATE, RV.RESERVE_TIME, RV.GUESTS
+		  FROM RESERVATION RV, RESTAURANT RT, RESERVE_PRODUCT RP
+		 WHERE RP.RESTAURANT_NO = RT.RESTAURANT_NO
+		   AND RV.RESERVE_PRODUCT_NO = RP.RESERVE_PRODUCT_NO
+		   AND RV.MEMBER_NO= #{memberNo}
+		   AND RV.DELYN = 'N'
+	</select>
+	
+	<select id="reservationDetail" parameterType="reservationVo" resultType="reservationVo">
+		SELECT RV.RESERVATION_NO, RT.RESTAURANT_NO, RP.RESERVE_PRODUCT_NO, 
+		       RT.RESTAURANT_NAME, RT.RESTAURANT_TEL, RV.RESERVE_DATE, RV.RESERVE_TIME, RV.GUESTS,
+		       RP.RESERVE_PRODUCT_NAME, RT.RESTAURANT_ADD1||''||RT.RESTAURANT_ADD2 AS ADDR
+		  FROM RESERVATION RV, RESTAURANT RT, RESERVE_PRODUCT RP
+		 WHERE RP.RESTAURANT_NO = RT.RESTAURANT_NO
+		   AND RV.RESERVE_PRODUCT_NO = RP.RESERVE_PRODUCT_NO
+		   AND RV.MEMBER_NO= #{memberNo}
+		   AND RV.RESERVATION_NO= #{reservationNo}
+	</select>
+	
+	<update id="reservationDelete" parameterType="reservationVo">
+	 	UPDATE RESERVATION
+		   SET DELYN='Y'
+		 WHERE RESERVATION_NO = #{reservationNo}
+	</update>
+	
+	<insert id="reservationInsert" parameterType="reservationVo">
+		INSERT INTO RESERVATION(RESERVATION_NO, RESERVE_PRODUCT_NO, MEMBER_NO, 
+					CREATE_DATE, RESERVE_DATE, RESERVE_TIME, GUESTS, DELYN)
+		VALUES (RESERVATION_SEQ.NEXTVAL, #{reserveProductNo}, #{memberNo}, SYSDATE, 
+			    TO_DATE(#{reserveDate}, 'YYYY/MM/DD'), #{reserveTime}, #{guests}, 'N')
+	</insert>	
+</mapper>

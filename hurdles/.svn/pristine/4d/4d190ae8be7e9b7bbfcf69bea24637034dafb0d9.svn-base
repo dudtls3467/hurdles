@@ -1,0 +1,73 @@
+package kr.or.ddit.site.board.service;
+
+import java.util.List;
+
+import kr.or.ddit.site.board.dao.QuestionDao;
+import kr.or.ddit.util.Pagenation;
+import kr.or.ddit.vo.BoardVo;
+import kr.or.ddit.vo.QuestionVo;
+
+public class QuestionService implements IBoardService{
+	
+	private static QuestionService instance;
+
+	private QuestionService() {
+
+	}
+
+	public static QuestionService getInstance() {
+		if (instance == null) {
+			instance = new QuestionService();
+		}
+
+		return instance;
+	}
+	
+	QuestionDao questionDao = QuestionDao.getInstance();
+	
+	//문의글 등록하기
+	public int insert(QuestionVo question) {
+		
+		return questionDao.insert(question);
+	}
+	
+	public int getQuestionNo() {
+		return questionDao.getQuestionNo();
+	}
+	
+	
+
+	@Override
+	public int insert(BoardVo board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public List<BoardVo> list(Pagenation<BoardVo> pagenation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BoardVo detail(BoardVo board) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int update(BoardVo board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(BoardVo board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+	
+}

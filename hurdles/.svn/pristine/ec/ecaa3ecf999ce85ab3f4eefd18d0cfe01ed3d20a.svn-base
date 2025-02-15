@@ -1,0 +1,14 @@
+
+package kr.or.ddit.site.menu.service;
+
+import java.util.List;
+
+import kr.or.ddit.vo.MenuVo;
+import kr.or.ddit.vo.ProductVo;
+import kr.or.ddit.vo.ReserveProductVo;
+
+public interface IMenuService {
+public List<MenuVo> menuList(MenuVo param); // 메뉴 목록
+	public List<ProductVo> productList(ProductVo param); // 주문 상품 목록
+	public List<ReserveProductVo> reserveProductList(ReserveProductVo param); // 예약 상품 목록
+}

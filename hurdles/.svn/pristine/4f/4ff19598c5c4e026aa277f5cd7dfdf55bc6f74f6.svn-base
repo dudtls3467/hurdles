@@ -1,0 +1,41 @@
+package kr.or.ddit.admin.menu.dao;
+
+import java.util.List;
+
+import kr.or.ddit.vo.MenuVo;
+
+public class MenuDao implements IMenuDao {
+	/*Singleton*/
+	private static MenuDao instance;
+
+	private MenuDao() {
+	}
+
+	public static MenuDao getInstance() {
+		if (instance == null) {
+			instance = new MenuDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public List<MenuVo> list(MenuVo param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insert(MenuVo param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(MenuVo param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+}

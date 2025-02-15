@@ -1,0 +1,17 @@
+package kr.or.ddit.site.pay.dao;
+
+public class PayDao implements IPayDao {
+	private static PayDao instance;
+
+	private PayDao() {
+
+	}
+
+	public static PayDao getInstance() {
+		if (instance == null) {
+			instance = new PayDao();
+		}
+
+		return instance;
+	}
+}

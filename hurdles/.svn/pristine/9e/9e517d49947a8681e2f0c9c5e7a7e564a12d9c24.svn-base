@@ -1,0 +1,72 @@
+package kr.or.ddit.site.member.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.MemberVo;
+
+public class MemberDao extends MybatisDao implements IMemberDao {
+	private static MemberDao instance;
+
+	private MemberDao() {
+
+	}
+
+	public static MemberDao getInstance() {
+		if (instance == null) {
+			instance = new MemberDao();
+		}
+
+		return instance;
+	}
+
+
+	public MemberVo memberDetail(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return selectOne("member.detail", memberVo);
+	}
+
+	@Override
+	public String getFilePath(int fileNo) {
+		// TODO Auto-generated method stub
+		return selectOne("member.getFilePath", fileNo);
+	}
+
+	@Override
+	public int getFollowCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return selectOne("member.getFollowCount",memberNo);
+	}
+
+	@Override
+	public int getFollowingCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return selectOne("member.getFollowingCount",memberNo);
+	}
+
+	@Override
+	public String getGradeName(int gradeNo) {
+		// TODO Auto-generated method stub
+		return selectOne("member.getGradeName",gradeNo);
+	}
+
+	@Override
+	public List<MemberVo> followDetail(int memberNo) {
+		// TODO Auto-generated method stub
+		return selectList("member.followDetail", memberNo);
+	}
+
+	@Override
+	public String getMemberName(int memberNo) {
+		// TODO Auto-generated method stub
+		return selectOne("member.getMemberName", memberNo);
+	}
+
+	@Override
+	public List<MemberVo> followerDetail(int memberNo) {
+		// TODO Auto-generated method stub
+		return selectList("member.followerDetail", memberNo);
+	}
+
+
+}

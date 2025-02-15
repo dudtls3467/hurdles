@@ -1,0 +1,17 @@
+package kr.or.ddit.site.member.dao;
+
+public class MemberDao implements IMemberDao {
+	private static MemberDao instance;
+
+	private MemberDao() {
+
+	}
+
+	public static MemberDao getInstance() {
+		if (instance == null) {
+			instance = new MemberDao();
+		}
+
+		return instance;
+	}
+}

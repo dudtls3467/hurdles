@@ -1,0 +1,17 @@
+package kr.or.ddit.site.pay.service;
+
+public class PayService implements IPayService {
+	private static PayService instance;
+
+	private PayService() {
+
+	}
+
+	public static PayService getInstance() {
+		if (instance == null) {
+			instance = new PayService();
+		}
+
+		return instance;
+	}
+}

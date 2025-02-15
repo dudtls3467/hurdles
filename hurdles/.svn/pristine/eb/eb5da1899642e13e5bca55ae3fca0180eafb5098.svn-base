@@ -1,0 +1,64 @@
+package kr.or.ddit.admin.member.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.Pagenation;
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.BoardVo;
+
+public class BlackDao extends MybatisDao implements ImplBoardDao{
+	
+	/*Singleton*/
+	private static BlackDao instance;
+
+	private BlackDao() {
+
+	}
+
+	public static BlackDao getInstance() {
+
+		if (instance == null) {
+
+			instance = new BlackDao();
+
+		}
+
+		return instance;
+
+	}
+
+	@Override
+	public int getAllCount(Pagenation<BoardVo> param) {
+		return selectOne("black.getAllCount",param);
+	}
+
+	@Override
+	public List<BoardVo> list(Pagenation<BoardVo> pagenation) {
+		return selectList("notice.list",pagenation);
+	}
+
+	@Override
+	public BoardVo detail(int boardNo) {
+		return null;
+	}
+
+	@Override
+	public int insert(BoardVo board) {
+		return 0;
+	}
+
+	@Override
+	public int update(BoardVo board) {
+		return 0;
+	}
+
+	@Override
+	public int delete(BoardVo boardNo) {
+		return 0;
+	}
+
+	
+	
+	
+
+}

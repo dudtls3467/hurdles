@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="restaurant">
+	<select id="getNo" resultType="int">
+		SELECT RESTAURANT_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+	<select id="getAllCount" parameterType="pagenation" resultType="int" >
+		SELECT COUNT(*)
+		FROM RESTAURANT
+		<where>
+			<if test="searchVo.restaurantName != null and searchVo.restaurantName != ''">
+				AND RESTRAUNT_NAME LIKE '%'||#{searchVo.restaurantName}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="pagenation" resultType="restaurantVo">
+		SELECT R.*, F.*, M.*
+		FROM RESTAURANT R
+		LEFT JOIN FILES F ON(R.FILE_NO = F.FILE_NO)
+		LEFT JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
+		<where>
+			<if test="searchVo.restaurantName != null and searchVo.restaurantName != ''">
+				AND RESTRAUNT_NAME LIKE '%'||#{searchVo.restaurantName}||'%'
+			</if>
+		</where>
+		ORDER BY R.CREATE_DATE DESC
+		OFFSET (#{pageNo} - 1) * #{recordCountPerPage} ROWS FETCH FIRST #{recordCountPerPage} ROWS ONLY
+	</select>
+
+	<select id="detail" parameterType="restaurantVo" resultType="restaurantVo">
+		SELECT R.*, F.*, M.*
+		FROM RESTAURANT R
+		LEFT JOIN FILES F ON(R.FILE_NO = F.FILE_NO)
+		LEFT JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
+		WHERE R.RESTAURANT_NO = #{restaurantNo}
+	</select>
+	
+	<insert id="insert" parameterType="restaurantVo">
+		INSERT INTO RESTAURANT(
+			RESTAURANT_NO, RESTAURANT_CODE_NO, LOCAL_NO, 
+			RESTAURANT_NAME, RESTAURANT_DES, RESTAURANT_ADD1, RESTAURANT_ADD2, RESTAURANT_TEL,
+			RESTAURANT_X, RESTAURANT_Y
+			<if test="fileNo != null and fileNo != ''">
+				, FILE_NO
+			</if>
+			
+			)
+		VALUES (
+			#{restaurantNo}, #{restaurantCodeNo}, #{localNo},
+			#{restaurantName}, #{restaurantDes}, #{restaurantAdd1}, #{restaurantAdd2}, #{restaurantTel},
+			0, 0
+			<if test="fileNo != null and fileNo != ''">
+				, #{fileNo}
+			</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="restaurantVo">
+	    UPDATE RESTAURANT
+			SET RESTAURANT_CODE_NO = #{restaurantCodeNo},
+	        LOCAL_NO = #{localNo},
+	        RESTAURANT_NAME = #{restaurantName},
+	        RESTAURANT_DES = #{restaurantDes},
+	        RESTAURANT_ADD1 = #{restaurantAdd1},
+	        RESTAURANT_ADD2 = #{restaurantAdd2},
+	        RESTAURANT_TEL = #{restaurantTel},
+					FILE_NO = #{fileNo}
+	    WHERE RESTAURANT_NO = #{restaurantNo}
+	</update>
+	
+	<insert id="restaurantFileInsert" parameterType="list">
+		INSERT ALL
+		<foreach collection="list" item="item">
+			INTO RESTAURANT_FILE
+			VALUES(#{item.file_no}, #{item.restaurant_no})
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+
+	<insert id="restaurantFileDelete" parameterType="int[]">
+		DELETE RESTAURANT_FILE
+		WHERE FILE_NO IN
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</insert>
+
+	<update id="delete" parameterType="restaurantVo">
+		UPDATE RESTAURANT
+		SET DELYN = 'Y'
+		WHERE RESTAURANT_NO = #{restaurantNo}
+	</update>
+
+	<select id="getFileList" parameterType="restaurantVo" resultType="fileVo">
+		SELECT F.*
+		FROM FILES F
+		JOIN RESTAURANT_FILE RF ON (F.FILE_NO = RF.FILE_NO)
+		WHERE RF.RESTAURANT_NO = #{restaurantNo} 
+	</select>
+</mapper>

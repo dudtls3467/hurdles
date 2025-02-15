@@ -1,0 +1,75 @@
+package kr.or.ddit.site.review.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.ReviewVo;
+
+public class ReviewDao extends MybatisDao implements IReviewDao {
+	private static ReviewDao instance;
+
+	private ReviewDao() {
+
+	}
+
+	public static ReviewDao getInstance() {
+		if (instance == null) {
+			instance = new ReviewDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public ReviewVo reviewDetail(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return selectOne("review.reviewDetail", reviewVo);
+	}
+
+	@Override
+	public int reviewDelete(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return update("review.reviewDelete", reviewVo);
+	}
+
+	@Override
+	public ReviewVo getFilePath(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return selectOne("review.getFilePath", reviewVo);
+	}
+
+	@Override
+	public List<ReviewVo> reviewList(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return selectList("review.reviewList",reviewVo);
+	}
+
+	@Override
+	public ReviewVo getName(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return selectOne("review.getName", reviewVo);
+	}
+
+	@Override
+	public ReviewVo getScore(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return selectOne("review.getScore");
+	}
+
+	@Override
+	public int reviewInsert(ReviewVo reviewVo) {
+		
+		return insert("review.insert",reviewVo);
+	}
+
+	@Override
+	public int getReviewNo() {
+		
+		return selectOne("review.getReviewNo");
+	}
+
+
+	
+
+
+}

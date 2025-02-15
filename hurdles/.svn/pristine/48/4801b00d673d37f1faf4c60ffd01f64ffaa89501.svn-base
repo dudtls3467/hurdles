@@ -1,0 +1,33 @@
+package kr.or.ddit.site.pay.service;
+
+import java.util.List;
+
+import kr.or.ddit.vo.PayVo;
+
+public class PayService implements IPayService {
+	private static PayService instance;
+
+	private PayService() {
+
+	}
+
+	public static PayService getInstance() {
+		if (instance == null) {
+			instance = new PayService();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public List<PayVo> payList(PayVo pay) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PayVo payDetail(PayVo pay) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

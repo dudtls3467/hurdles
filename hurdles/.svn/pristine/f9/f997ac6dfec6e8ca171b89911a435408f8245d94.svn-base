@@ -1,0 +1,44 @@
+package kr.or.ddit.admin.member.service;
+
+
+import kr.or.ddit.vo.MemberVo;
+
+
+import java.util.List;
+
+import kr.or.ddit.vo.MemberVo;
+
+public class MemberService implements IMemberService {
+	private static MemberService instance;
+
+	private MemberService() {
+
+	}
+
+	public static MemberService getInstance() {
+		if (instance == null) {
+			instance = new MemberService();
+		}
+
+		return instance;
+	}
+
+
+
+
+	@Override
+	public List<MemberVo> list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVo detail(MemberVo memberNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+}

@@ -1,0 +1,5 @@
+package kr.or.ddit.site.question.service;
+
+public interface IQuestionService {
+
+}

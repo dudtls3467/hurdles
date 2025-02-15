@@ -1,0 +1,5 @@
+package kr.or.ddit.admin.pay.service;
+
+public interface IPayService {
+
+}

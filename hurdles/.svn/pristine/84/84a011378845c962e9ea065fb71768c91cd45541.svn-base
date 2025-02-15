@@ -1,0 +1,17 @@
+package kr.or.ddit.site.mileage.service;
+
+public class MileageService implements IMileageService {
+	private static MileageService instance;
+
+	private MileageService() {
+
+	}
+
+	public static MileageService getInstance() {
+		if (instance == null) {
+			instance = new MileageService();
+		}
+
+		return instance;
+	}
+}

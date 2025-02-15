@@ -1,0 +1,11 @@
+package kr.or.ddit.site.reservation.service;
+
+import java.util.List;
+
+import kr.or.ddit.vo.ReservationVo;
+
+public interface IReservationService {
+	
+	// 예약내역 전체조회 - 김영신 제작중
+	public List<ReservationVo> reservationList(ReservationVo reservation);
+}

@@ -1,0 +1,8 @@
+package kr.or.ddit.site.review.service;
+
+import kr.or.ddit.vo.ReviewVo;
+
+public interface IReviewService {
+	
+	public ReviewVo reviewDetail(ReviewVo reviewVo);
+}

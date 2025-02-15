@@ -1,0 +1,51 @@
+package kr.or.ddit.site.reservation.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import kr.or.ddit.site.reservation.service.IReservationService;
+import kr.or.ddit.site.reservation.service.ReservationService;
+import kr.or.ddit.vo.ReservationVo;
+
+@WebServlet("/site/reservationList.do")
+public class ReservationListController extends HttpServlet{
+	
+	IReservationService reserveService = ReservationService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+//		HttpSession session = req.getSession();
+//		ReservationVo memberNo = (ReservationVo)session.getAttribute("memberNo");
+//
+//		memberNo = reserveService.get
+		
+//		String memberNoStr = req.getParameter("memberNo");
+//		int memberNo = Integer.parseInt(memberNoStr);
+		
+		int memberNo = 10;
+		
+		ReservationVo reservation = new ReservationVo();
+		List<ReservationVo> reservationList = reserveService.reservationList(reservation);
+		System.out.println(reservationList);
+		
+		reservation.setMemberNo(memberNo);
+		
+		req.setAttribute("reservationList", reservationList);
+		
+		System.out.println(reservationList);
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/site/reservation/reservationList.jsp").forward(req, resp);
+	}
+	
+}

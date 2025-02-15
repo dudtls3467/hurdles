@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<select id="boardList" parameterType="boardVo" resultType="boardVo">
+		SELECT BOARD_NO, TITLE, CONTENT, B.MEM_NO, REG_DATE, B.CODE_NO, MEM_NAME, BC.CODE_NAME
+		FROM BOARD B, MEMBER M , BOARD_CODE BC
+		WHERE B.MEM_NO = M.MEM_NO
+		AND B.CODE_NO = BC.CODE_NO
+		AND B.CODE_NO = #{codeNo}
+		ORDER BY BOARD_NO DESC	
+	</select>
+	
+	<select id="codeList" resultType="boardVo">
+	 	SELECT * FROM BOARD_CODE
+	
+	</select>
+	
+
+</mapper>

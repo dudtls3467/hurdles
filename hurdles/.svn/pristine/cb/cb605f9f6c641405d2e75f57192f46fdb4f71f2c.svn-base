@@ -1,0 +1,5 @@
+package kr.or.ddit.site.orders.service;
+
+public interface IOrdersService {
+
+}

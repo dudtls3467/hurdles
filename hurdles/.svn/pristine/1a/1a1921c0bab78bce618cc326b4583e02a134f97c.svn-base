@@ -1,0 +1,28 @@
+package kr.or.ddit.site.member.dao;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.MemberVo;
+
+public class MemberDao extends MybatisDao implements IMemberDao {
+	private static MemberDao instance;
+
+	private MemberDao() {
+
+	}
+
+	public static MemberDao getInstance() {
+		if (instance == null) {
+			instance = new MemberDao();
+		}
+
+		return instance;
+	}
+
+
+	public MemberVo memberDetail(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return selectOne("member.detail", memberVo);
+	}
+
+
+}

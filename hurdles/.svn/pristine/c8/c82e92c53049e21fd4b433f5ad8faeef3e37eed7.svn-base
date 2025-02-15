@@ -1,0 +1,56 @@
+package kr.or.ddit.auth.dao;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.MemberVo;
+
+public class AuthDao extends MybatisDao implements IAuthDao {
+	private static AuthDao instance;
+
+	private AuthDao() {
+
+	}
+
+	public static AuthDao getInstance() {
+		if (instance == null) {
+			instance = new AuthDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public MemberVo login(MemberVo user) {
+		return selectOne("member.login", user);
+	}
+
+	@Override
+	public int logOut(MemberVo user) {
+		return 0;
+	}
+
+	@Override
+	public int join(MemberVo user) {
+		return 0;
+	}
+
+	@Override
+	public int idFind(MemberVo user) {
+		return 0;
+	}
+
+	@Override
+	public int pwFind(MemberVo user) {
+		return 0;
+	}
+
+	@Override
+	public int delete(MemberVo user) {
+		return 0;
+	}
+
+	@Override
+	public MemberVo detail(MemberVo user) {
+		return selectOne("member.detail", user);
+	}
+
+}

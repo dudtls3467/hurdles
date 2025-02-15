@@ -1,0 +1,40 @@
+package kr.or.ddit.site.menu.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.MenuVo;
+import kr.or.ddit.vo.ProductVo;
+import kr.or.ddit.vo.ReserveProductVo;
+
+public class MenuDao extends MybatisDao implements IMenuDao {
+	/* Singleton */
+	private static MenuDao instance;
+
+	private MenuDao() {
+	}
+
+	public static MenuDao getInstance() {
+		if (instance == null) {
+			instance = new MenuDao();
+		}
+
+		return instance;
+	}
+	
+	@Override
+	public List<MenuVo> menuList(MenuVo param) {
+		return selectList("menu.menuList", param);
+	}
+
+	@Override
+	public List<ProductVo> productList(ProductVo param) {
+		return selectList("menu.productList", param);
+	}
+
+	@Override
+	public List<ReserveProductVo> reserveProductList(ReserveProductVo param) {
+		return selectList("menu.reserveProductList", param);
+	}
+
+}

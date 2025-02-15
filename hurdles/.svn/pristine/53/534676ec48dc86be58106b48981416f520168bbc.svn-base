@@ -1,0 +1,17 @@
+package kr.or.ddit.owner.question.service;
+
+public class QuestionService implements IQuestionService {
+	private static QuestionService instance;
+
+	private QuestionService() {
+
+	}
+
+	public static QuestionService getInstance() {
+		if (instance == null) {
+			instance = new QuestionService();
+		}
+
+		return instance;
+	}
+}

@@ -1,0 +1,17 @@
+package kr.or.ddit.owner.question.dao;
+
+public class QuestionDao implements IQuestionDao {
+	private static QuestionDao instance;
+
+	private QuestionDao() {
+
+	}
+
+	public static QuestionDao getInstance() {
+		if (instance == null) {
+			instance = new QuestionDao();
+		}
+
+		return instance;
+	}
+}

@@ -1,0 +1,36 @@
+package kr.or.ddit.site.member.controller;
+
+import java.io.IOException;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.site.member.service.MemberService;
+
+@WebServlet("/site/followMember.do")
+public class FollowMemberController extends HttpServlet {
+		MemberService memberService = MemberService.getInstance();
+		
+		
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			
+			String memberNoStr = req.getParameter("memberNo");
+			
+			int memberNo = Integer.parseInt(memberNoStr);
+			
+			int followCheck=memberService.followMember(memberNo);
+			
+			
+			
+			ServletContext ctx = req.getServletContext();
+			ctx.getRequestDispatcher("/WEB-INF/view/site/memberDetail.jsp").forward(req, resp);
+			
+		}
+		
+
+	
+}

@@ -1,0 +1,5 @@
+package kr.or.ddit.owner.reservation.dao;
+
+public interface IReservationDao {
+
+}

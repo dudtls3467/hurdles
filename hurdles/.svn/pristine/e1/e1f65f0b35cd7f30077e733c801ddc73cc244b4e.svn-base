@@ -1,0 +1,17 @@
+package kr.or.ddit.site.pick.dao;
+
+public class PickDao implements IPickDao {
+	private static PickDao instance;
+
+	private PickDao() {
+
+	}
+
+	public static PickDao getInstance() {
+		if (instance == null) {
+			instance = new PickDao();
+		}
+
+		return instance;
+	}
+}

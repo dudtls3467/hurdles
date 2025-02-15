@@ -1,0 +1,46 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class MemberVo {
+	private int memberNo;
+	private String memberId;
+	private String memberPw;
+	private String delyn;
+	private String createDate;
+	private String removeDate;
+	private int memberRole; // 0 => 관리자, 1 => 사장님 & 일반 사용자, 2 => 일반 사용자, 4 => 블랙 리스트
+	
+	private String memberName;
+	private String memberBir;
+	private String memberGender;
+	private String memberAdd1;
+	private String memberAdd2;
+	private String memberTel;
+	private String memberEmail;
+	private int memberMileage;
+	private String field;
+	private int fileNo;
+	private int gradeNo;
+	private int benCnt; // 신고 카운트
+	
+	// 프로필 파일 경로
+	private String filePath;
+
+	// 팔로우 카운트
+	private int memberFollowNo;
+	
+	// 팔로워 카운트
+	private int followerCnt = 0;
+	
+	// 리뷰 카운트
+	private int reviewCnt = 0;
+
+	//등급명
+	private String gradeName;
+	
+
+
+}
+

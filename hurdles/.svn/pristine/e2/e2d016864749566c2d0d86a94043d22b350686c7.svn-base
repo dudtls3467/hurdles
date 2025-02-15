@@ -1,0 +1,44 @@
+package kr.or.ddit.site.pay.controller;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.site.cart.service.ICartService;
+import kr.or.ddit.site.pay.service.IPayService;
+import kr.or.ddit.site.pay.service.PayService;
+
+@WebServlet("/site/pay.do")
+public class PayController extends HttpServlet {
+	
+	IPayService payService = PayService.getInstance();
+
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		String[] cartNo = req.getParameterValues("cartNo");
+		
+		System.out.println(Arrays.toString(cartNo));
+		
+		int[] remiveId = {1, 2, 3};
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/pay/kakaoPay.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		
+		
+		
+	}
+}

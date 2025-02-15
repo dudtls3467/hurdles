@@ -1,0 +1,43 @@
+package kr.or.ddit.filter;
+
+import java.io.IOException;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import kr.or.ddit.vo.MemberVo;
+
+@WebFilter("/admin/*")
+public class AdminAuthFilter implements Filter {
+
+	@Override
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+		throws IOException, ServletException {
+		
+		chain.doFilter(req, resp);
+//		임시 주석 
+//		// HttpServletRequest로 캐스팅
+//        HttpServletRequest httpRequest = (HttpServletRequest) req;
+//        HttpServletResponse httpresp = (HttpServletResponse) resp;
+//        
+//        // 세션 가져오기 (세션이 없으면 null 반환)
+//        HttpSession session = httpRequest.getSession(false);
+//        
+//        if (session != null) {
+//        	MemberVo member = (MemberVo) session.getAttribute("member");
+//        	
+//        	if (member != null) {
+//        		chain.doFilter(req, resp);
+//        		return;
+//        	} 
+//        }
+//        
+//        httpresp.sendRedirect(httpRequest.getContextPath() + "/auth/login.do");
+	}
+}

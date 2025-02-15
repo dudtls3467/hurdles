@@ -1,0 +1,17 @@
+package kr.or.ddit.admin.member.service;
+
+public class MemberService implements IMemberService {
+	private static MemberService instance;
+
+	private MemberService() {
+
+	}
+
+	public static MemberService getInstance() {
+		if (instance == null) {
+			instance = new MemberService();
+		}
+
+		return instance;
+	}
+}

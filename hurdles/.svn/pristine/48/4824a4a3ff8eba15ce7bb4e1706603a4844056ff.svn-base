@@ -1,0 +1,36 @@
+package kr.or.ddit.owner.menu.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.site.menu.service.MenuService;
+import kr.or.ddit.util.Utils;
+import kr.or.ddit.vo.MenuVo;
+import kr.or.ddit.vo.ProductVo;
+import kr.or.ddit.vo.ReserveProductVo;
+
+@WebServlet("/owner/productList.do")
+public class ProductListController extends HttpServlet {
+	MenuService menuService = MenuService.getInstance(); 
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String restrauntNo = req.getParameter("restaurantNo");
+
+		// 주문 메뉴
+		ProductVo product = new ProductVo();
+		product.setRestaurantNo(Utils.parseInt(restrauntNo, 0));
+		List<ProductVo> productList = menuService.productList(product);
+		
+		req.setAttribute("productList", productList);
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/owner/menu/productList.jsp").forward(req, resp);
+	}
+}

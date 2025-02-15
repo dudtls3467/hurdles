@@ -1,0 +1,5 @@
+package kr.or.ddit.admin.review.dao;
+
+public interface IReviewDao {
+ 
+}

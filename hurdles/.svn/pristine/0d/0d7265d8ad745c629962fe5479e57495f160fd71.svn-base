@@ -1,0 +1,45 @@
+package kr.or.ddit.admin.restaurant.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.admin.restaurant.service.RestaurantService;
+import kr.or.ddit.file.service.FileService;
+import kr.or.ddit.util.RequestToVoMapper;
+import kr.or.ddit.vo.FileVo;
+import kr.or.ddit.vo.LocalVo;
+import kr.or.ddit.vo.RestaurantCodeVo;
+import kr.or.ddit.vo.RestaurantVo;
+
+@WebServlet("/admin/restaurantUpdate.do")
+public class RestaurantUpdateController extends HttpServlet {
+	RestaurantService resService = RestaurantService.getInstance();
+	FileService fileService = FileService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RestaurantVo param = RequestToVoMapper.mapRequestToVo(req, RestaurantVo.class);
+		
+		// 음식 카테고리 불러오기
+		List<RestaurantCodeVo> restaurantCodeList = resService.getRestaurantCodeList();
+		
+		// 지역 불러오기
+		List<LocalVo> localList = resService.getLocalList();
+		
+		// 식당 상세
+		RestaurantVo restaurant = resService.detail(param);
+		
+		// 식당 파일
+		List<FileVo> fileList = resService.getFileList(param);
+		
+		req.setAttribute("restaurant", restaurant);
+		req.setAttribute("resCodeList", restaurantCodeList);
+		req.setAttribute("localList", localList);
+		req.setAttribute("fileList", fileList);
+	}
+}

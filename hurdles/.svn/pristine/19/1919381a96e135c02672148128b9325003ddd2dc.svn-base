@@ -1,0 +1,17 @@
+package kr.or.ddit.site.cart.service;
+
+public class CartService implements ICartService {
+	private static CartService instance;
+
+	private CartService() {
+
+	}
+
+	public static CartService getInstance() {
+		if (instance == null) {
+			instance = new CartService();
+		}
+
+		return instance;
+	}
+}

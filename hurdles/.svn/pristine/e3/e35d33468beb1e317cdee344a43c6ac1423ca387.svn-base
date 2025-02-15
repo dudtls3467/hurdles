@@ -1,0 +1,34 @@
+package kr.or.ddit.site.pay.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.mybatis.MybatisDao;
+import kr.or.ddit.vo.PayVo;
+
+public class PayDao extends MybatisDao implements IPayDao {
+	private static PayDao instance;
+
+	private PayDao() {
+
+	}
+
+	public static PayDao getInstance() {
+		if (instance == null) {
+			instance = new PayDao();
+		}
+
+		return instance;
+	}
+
+	@Override
+	public List<PayVo> payList(PayVo pay) {
+		// TODO Auto-generated method stub
+		return selectList("pay.payList", pay);
+	}
+
+	@Override
+	public PayVo payDetail(PayVo pay) {
+		// TODO Auto-generated method stub
+		return selectOne("pay.payDetail", pay);
+	}
+}

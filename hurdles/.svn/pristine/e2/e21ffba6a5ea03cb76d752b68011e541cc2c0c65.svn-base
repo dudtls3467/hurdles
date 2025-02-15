@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+
+	<select id="reviewDetail" resultType="reviewVo" parameterType="reviewVo">
+      	SELECT A.REVIEW_SCORE,
+		        A. REVIEW_CONTENT,
+		        A.CREATE_DATE,
+		        A.DELYN,
+			A.REVIEW_NO,
+		        B.CREATE_DATE,
+		        B.REMOVE_DATE,
+		        C.PRODUCT_NO,
+		        C.ORDERS_PRODUCT_QTY,
+		        D.RESTAURANT_NAME,
+		        E.PRODUCT_NAME,
+                F.FILE_SAVE_NAME
+		FROM REVIEW A, ORDERS B, ORDERS_PRODUCT C, RESTAURANT D, FILES F, PRODUCT E
+		WHERE A.MEMBER_NO = 3
+		  AND  B.ORDERS_NO = C.ORDERS_NO
+		  AND D.RESTAURANT_NO = A.RESTAURANT_NO
+          AND D.FILE_NO = F.FILE_NO
+		  AND C.PRODUCT_NO = E.PRODUCT_NO
+          AND  A.DELYN = 'N'
+		  AND A.REVIEW_NO = 1
+
+	</select>
+	
+
+	
+	<update id="reviewDelete" parameterType="reviewVo">
+		
+		UPDATE REVIEW SET
+    		DELYN = 'Y'
+		WHERE REVIEW_NO = #{reviewNo}
+	
+	</update>
+	
+	
+
+</mapper>

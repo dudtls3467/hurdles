@@ -1,0 +1,28 @@
+package kr.or.ddit.admin.faq.dao;
+
+import java.util.List;
+
+import kr.or.ddit.util.Pagenation;
+import kr.or.ddit.vo.BoardVo;
+
+public interface IFaqDao {
+	
+	// faq 전체 개수 - 백 
+	public int getAllCount(Pagenation<BoardVo> param);
+	
+	// faq 목록 - 백
+	public List<BoardVo> list(Pagenation<BoardVo> param);
+	
+	// faq 상세보기 - 백
+	public BoardVo detail(BoardVo param);
+	
+	// faq 추가 - 백
+	public int insert(BoardVo param);
+	
+	// faq 수정 - 백
+	public int update(BoardVo param);
+	
+	// faq 삭제 - 백
+	public int remove(BoardVo param);
+	
+}

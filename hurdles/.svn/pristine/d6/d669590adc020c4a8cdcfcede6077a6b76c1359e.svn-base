@@ -1,0 +1,5 @@
+package kr.or.ddit.site.cart.dao;
+
+public interface ICartDao {
+
+}

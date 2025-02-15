@@ -1,0 +1,17 @@
+package kr.or.ddit.site.pick.service;
+
+public class PickService implements IPickService {
+	private static PickService instance;
+
+	private PickService() {
+
+	}
+
+	public static PickService getInstance() {
+		if (instance == null) {
+			instance = new PickService();
+		}
+
+		return instance;
+	}
+}

@@ -1,0 +1,46 @@
+package kr.or.ddit.site.cart.controller;
+
+import java.io.IOException;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import kr.or.ddit.site.cart.service.CartService;
+import kr.or.ddit.vo.CartVo;
+import kr.or.ddit.vo.MemberVo;
+@WebServlet("/site/cartInsert.do")
+public class CartInsertController extends HttpServlet {
+	CartService cartservice = CartService.getInstance();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		MemberVo member = (MemberVo) session.getAttribute("member");
+		int memberNo = member.getMemberNo();
+		
+		CartVo cart= new CartVo();
+		cart.setMemberNo(memberNo);
+		
+		int cartInsert= cartservice.insert(cart);
+		req.setAttribute("cartInsert",cartInsert);
+		
+		
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/site/cart/cartInsert.jsp").forward(req, resp);
+		
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		
+	}
+
+}

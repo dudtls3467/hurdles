@@ -1,0 +1,60 @@
+package kr.or.ddit.site.review.service;
+
+
+import java.util.List;
+
+import kr.or.ddit.site.review.dao.ReviewDao;
+import kr.or.ddit.vo.ReviewVo;
+
+public class ReviewService implements IReviewService {
+	private static ReviewService instance;
+
+	private ReviewService() {
+
+	}
+
+	public static ReviewService getInstance() {
+		if (instance == null) {
+			instance = new ReviewService();
+		}
+
+		return instance;
+	}
+	ReviewDao reviewDao = ReviewDao.getInstance();
+	@Override
+	public ReviewVo reviewDetail(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return reviewDao.reviewDetail(reviewVo);
+	}
+	
+	@Override
+	public int reviewDelete(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return reviewDao.reviewDelete(reviewVo);
+	}
+
+	@Override
+	public ReviewVo getFilePath(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return reviewDao.getFilePath(reviewVo);
+	}
+
+	@Override
+	public List<ReviewVo> reviewList(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return reviewDao.reviewList(reviewVo);
+	}
+
+	@Override
+	public ReviewVo getName(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return reviewDao.getName(reviewVo);
+	}
+
+	@Override
+	public ReviewVo getScore(ReviewVo reviewVo) {
+		// TODO Auto-generated method stub
+		return reviewDao.getScore(reviewVo);
+	}
+
+}

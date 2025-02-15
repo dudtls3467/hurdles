@@ -1,0 +1,32 @@
+package kr.or.ddit.site.board.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.site.board.service.GongJiService;
+import kr.or.ddit.site.board.service.IBoardService;
+import kr.or.ddit.site.board.service.notificationService;
+import kr.or.ddit.vo.BoardVo;
+@WebServlet ("/site/notificationList.do")
+public class notificationListController extends HttpServlet{
+
+	IBoardService service = notificationService.getInstance();
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		BoardVo gongji = new BoardVo();
+		List<BoardVo> list = service.notificationList(gongji);
+		
+		req.setAttribute("list", list);
+		
+		ServletContext ctx = req.getServletContext();
+		ctx.getRequestDispatcher("/WEB-INF/view/site/notification/notification.jsp").forward(req, resp);
+	}
+}

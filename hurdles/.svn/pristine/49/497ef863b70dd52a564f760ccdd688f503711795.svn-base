@@ -1,0 +1,26 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class QuestionVo {
+	private int questionNo;
+	private String questionTitle;
+	private String questionContent;
+	private String createDate;
+	private String updateDate;
+	private String questionAnswer;
+	private int memberNo;
+	private int restaurantNo;
+	private int fileNo;
+	
+	//memberId (작성자 가져오려고)
+	private String memberId;
+	// 파일경로 
+	private String filePath;
+	//리스트를 위한 rownum
+	private String rm; 
+	//댓글 권한을 위한 memberRole
+	private int memberRole;
+
+}

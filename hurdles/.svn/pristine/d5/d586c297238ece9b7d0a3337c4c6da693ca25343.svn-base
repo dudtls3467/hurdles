@@ -1,0 +1,58 @@
+package kr.or.ddit.admin.faq.controller;
+
+import java.io.IOException;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.admin.faq.service.FaqService;
+import kr.or.ddit.util.RequestToVoMapper;
+import kr.or.ddit.vo.BoardVo;
+
+@WebServlet("/admin/faqDelete.do")
+public class FaqDeleteController extends HttpServlet{
+
+FaqService faqService = FaqService.getInstance();
+	
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		
+//		BoardVo searchBoard = RequestToVoMapper.mapRequestToVo(req, BoardVo.class);
+//		faqService.delete(searchBoard.getBoardNo());
+//
+//		resp.sendRedirect(req.getContextPath() + "/admin/boardList.do");
+		
+	    try {
+            String boardNoStr = req.getParameter("boardNo");
+            int boardNo = Integer.parseInt(boardNoStr);
+
+            BoardVo BoardVo = new BoardVo();
+            BoardVo.setBoardNo(boardNo);
+
+            int result = faqService.delete(boardNo);  // 삭제 실행
+
+            if(result > 0) {  // 삭제성공
+                resp.sendRedirect(req.getContextPath() + "/faqList.do");   // 목록으로 이동
+            } else {
+                throw new RuntimeException("삭제 실패");
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+            // 에러 처리 페이지로 이동하거나 메시지 표시
+            resp.sendError(500, "삭제 처리 중 오류가 발생했습니다.");
+        } 
+    } 
+
+		
+	}
+	
+	
+	
+
+	
+

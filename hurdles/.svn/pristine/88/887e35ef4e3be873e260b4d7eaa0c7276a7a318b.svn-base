@@ -1,0 +1,25 @@
+package kr.or.ddit.site.member.service;
+
+import java.util.List;
+
+import kr.or.ddit.vo.MemberVo;
+
+public interface IMemberService {
+	//유저 상세보기 - 오정균 작업준비끝!
+	
+	public MemberVo memberDetail(MemberVo memberVo);
+	
+	public String getFilePath(int fileNo);
+
+	public int getFollowCount(int memberNo);
+	
+	public int getFollowingCount(int memberNo);
+	
+	public String getGradeName(int gradeNo);
+	
+	public List<MemberVo> followDetail(int memberNo);
+	
+	public String getMemberName(int memberNo);
+	
+	public List<MemberVo> followerDetail(int memberNo);
+}
